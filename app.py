@@ -1,7 +1,6 @@
 import constants
 import copy
 import sys
-import pdb
 
 
 PLAYERS_COPY = copy.deepcopy(constants.PLAYERS)
@@ -27,63 +26,58 @@ def balance_teams():
             team.append(PLAYERS_COPY.pop())
 
 
-def check_input():
+def show_menu():
+    print("BASKETBALL TEAM STATS TOOL")
+    print("\n---- MENU----\n")
+    print("Here are your choices:")
+    print("1) Display Team Stats")
+    print("2) Quit")
+
     while True:
         try:
-            user_input = int(input("Enter an option > "))
-            break
+            choise = int(input("\nEnter an option > "))
+            if choise == 1:
+                show_teams()
+                break
+            elif choise == 2:
+                print("\nThe program will close now.")
+                raise SystemExit
+            else:
+                print("\nPlease select 1 or 2")
+                continue
         except ValueError:
-            print("Please enter a valid number.\n ")
-    return user_input
-
-
-def show_menu():
-    print("""BASKETBALL TEAM STATS TOOL
-
----- MENU----
-
-Here are your choices:
-1) Display Team Stats
-2) Quit
-""")
-    while True:
-        check_input()
-        if check_input() == 1:
-            show_teams()
-            break
-        elif check_input() == 2:
-            print("The program will close now.")
-            raise SystemExit
-        else:
-            print("Please select 1 or 2")
-            continue
+            print("\nplease enter a valid number")
 
 
 def show_teams():
-    print("""
-1) Panthers
-2) Bandits
-3) Warriors
-""")
+
+    print("\nWhich team stats would you like te see?\n")
+    print("1) Panthers")
+    print("2) Bandits")
+    print("3) Warriors")
+
     while True:
-        check_input()
-        if check_input() == 1:
-            display_team(panthers, "Panthers")
-            break
-        elif check_input() == 2:
-            display_team(bandits, "Bandits")
-            break
-        elif check_input() == 3:
-            display_team(warriors, "Warriors")
-            break
-        else:
-            print("Please select a number between 1 and 3")
-            continue
+        try:
+            choise = int(input("\nEnter an option > "))
+            if choise == 1:
+                display_team(panthers, "Panthers")
+                break
+            elif choise == 2:
+                display_team(bandits, "Bandits")
+                break
+            elif choise == 3:
+                display_team(warriors, "Warriors")
+                break
+            else:
+                print("\nPlease select a number between 1 and 3")
+                continue
+        except ValueError:
+            print("\nplease enter a valid number")
 
 
 def display_team(team, team_name):
     print("\nTeam: {}".format(team_name))
-    print("----------")
+    print("-------------")
     print("total players: {}".format(len(team)))
     print("\nPlayers on team:")
     i = 0
@@ -96,22 +90,23 @@ def display_team(team, team_name):
 
 
 def show_end():
+    print("\nPress ENTER to go back to the main menu, or enter 'Q' tp quit >")
     while True:
-        print("\nPress ENTER to go back to the main menu, or enter 'Q' tp quit")
-        if input() == "":
+        choise = input()
+        if choise == "":
             show_menu()
-        elif input().lower() == "q":
-            print("The program will close now.")
+        elif choise.lower() == "q":
+            print("\nThe program will close now.")
             raise SystemExit
         else:
-            print("Please press ENTER or enter 'q'")
+            print("\nPlease press ENTER or enter 'q'")
 
 
-def start_program():
+def run_program():
     clean_data()
     balance_teams()
     show_menu()
 
 
 if __name__ == "__main__":
-    start_program()
+    run_program()
